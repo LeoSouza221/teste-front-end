@@ -44,11 +44,9 @@ export default {
     params: {
       part: 'id, snippet',
       q: '',
-      key: 'AIzaSyDQx-C00Z49nc6_g0PPyerxJaE5WnVbmzs',
       maxResults: '20',
     },
   }),
-  // AIzaSyAel3s1odiQkoUxC8X2LKIUpLjuqMCsTGI
   methods: {
     novaBusca() {
       this.videos.length = 0;
