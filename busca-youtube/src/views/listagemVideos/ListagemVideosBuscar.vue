@@ -1,5 +1,8 @@
 <template lang="pug">
-  .section(:class="classesTela")
+  .section(
+    :class="classesTela"
+    :style="{backgroundColor: $vuetify.theme.themes.dark.primary}"
+  )
     v-form(ref="buscar" v-model="validaBusca")
       v-container
         v-row(
@@ -42,11 +45,13 @@ export default {
     descricaoBusca: '',
     classesTela: 'buscar-container',
     params: {
-      part: 'id, snippet',
+      part: 'id,snippet',
       q: '',
       maxResults: '20',
+      key: process.env.VUE_APP_API_KEY,
     },
   }),
+
   methods: {
     novaBusca() {
       this.videos.length = 0;
@@ -69,11 +74,13 @@ export default {
 
 <style scoped>
   .buscar-container {
-    position: absolute;
+    position: fixed;
     width: 100%;
+    height: 100px;
     top: 50%;
     transform: translateY(-50%);
     transition: all .5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 1;
   }
 
   .animacao-subir {
@@ -82,9 +89,12 @@ export default {
 
   @keyframes subindo {
     100% {
-      position: absolute;
+      position: fixed !important;
       transform: none;
       top: 0;
+      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
     }
   }
 </style>
