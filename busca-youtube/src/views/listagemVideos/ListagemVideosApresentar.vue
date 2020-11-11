@@ -8,7 +8,7 @@
         :items-per-page.sync="videos.length"
         hide-default-footer
         v-scroll:#scroll-target="onScroll"
-        :loading="loadingContent"
+        no-data-text=""
       )
         template(v-slot:default="props")
           v-container
@@ -38,8 +38,13 @@
                       v-col(col="12")
                         h4.py-2.subtitle-2 {{ item.snippet.title | cortarTexto }}
                         p.text-format.body-2 {{ item.snippet.description }}
+        template(
+          v-slot:no-results
+        ) NO RESULTS HERE!
+          h1.text-center Nao ha nada aqui
     v-card(
       color="accent"
+      v-if="videos.length > 0"
     )
       v-progress-linear(
         color="primary"

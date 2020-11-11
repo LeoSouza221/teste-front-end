@@ -1,5 +1,9 @@
 <template lang="pug">
-  div
+  .listagem-videos
+    Alerta(
+      :abrirAlerta.sync="abrirAlerta"
+      :textoMensagem="textoMensagem"
+    )
     ListagemVideosBuscar(
       :videos="videos"
       :params="params"
@@ -15,6 +19,7 @@
 
 <script>
 import axios from '@/utils/axios';
+import Alerta from '@/components/Alerta.vue';
 import ListagemVideosApresentar from './ListagemVideosApresentar.vue';
 import ListagemVideosBuscar from './ListagemVideosBuscar.vue';
 
@@ -22,12 +27,15 @@ export default {
   name: 'ListagemVideos',
 
   components: {
+    Alerta,
     ListagemVideosApresentar,
     ListagemVideosBuscar,
   },
 
   data: () => ({
+    abrirAlerta: false,
     loadingContent: false,
+    textoMensagem: '',
     params: {
       part: 'id,snippet',
       q: '',
@@ -48,6 +56,13 @@ export default {
           this.loadingContent = false;
           this.videos.push(...items);
           this.params = Object.assign(this.params, { pageToken });
+        })
+        .catch(({ response: { data } }) => {
+          const { message } = data.error;
+
+          this.loadingContent = false;
+          this.abrirAlerta = true;
+          this.textoMensagem = message;
         });
     },
   },
