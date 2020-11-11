@@ -22,18 +22,20 @@
               fab
               color="secondary"
               rounded
-              @click="novaBusca"
+              @click="limparCamposEBuscar"
             )
               v-icon(dark) mdi-magnify
 </template>
 
 <script>
-import http from '@/utils/http';
-
 export default {
-  name: 'ListagemVideosBuscar',
+  name: 'ListagemVideosBusca',
 
   props: {
+    params: {
+      type: Object,
+      required: true,
+    },
     videos: {
       type: Array,
       required: true,
@@ -44,29 +46,16 @@ export default {
     validaBusca: false,
     descricaoBusca: '',
     classesTela: 'buscar-container',
-    params: {
-      part: 'id,snippet',
-      q: '',
-      maxResults: '20',
-      key: process.env.VUE_APP_API_KEY,
-    },
   }),
 
   methods: {
-    novaBusca() {
+    limparCamposEBuscar() {
       this.videos.length = 0;
       this.classesTela = `${this.classesTela} animacao-subir`;
 
-      this.buscarVideos(this.params);
-    },
+      delete this.params.nextPageToken;
 
-    buscarVideos(params) {
-      // https://www.googleapis.com/youtube/v3/search?part=id,snippet&q={termo_de_busca}&key={API_KEY}
-      http.get('/search', { params })
-        .then(({ data: { items } }) => {
-          console.log(items);
-          this.videos.push(...items);
-        });
+      this.$emit('buscar-videos', this.params);
     },
   },
 };
