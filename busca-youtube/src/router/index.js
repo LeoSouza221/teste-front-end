@@ -9,6 +9,11 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
   },
+  {
+    path: '/video/:id',
+    name: 'DetalheVideos',
+    component: () => import('../views/detalheVideos/detalheVideos.vue'),
+  },
 ];
 
 const router = new VueRouter({
