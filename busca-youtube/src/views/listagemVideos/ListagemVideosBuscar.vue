@@ -15,14 +15,14 @@
               clearable
               color="secondary"
               placeholder="Pesquisar"
-              v-model="params.q"
+              v-model="textoBusca"
             )
           v-col(cols="3" sm="2")
             v-btn(
               fab
               color="secondary"
               rounded
-              @click="limparCamposEBuscar"
+              @click="definirParametros"
             )
               v-icon(dark) mdi-magnify
 </template>
@@ -44,16 +44,27 @@ export default {
 
   data: () => ({
     validaBusca: false,
+    textoBusca: '',
     descricaoBusca: '',
     classesTela: 'buscar-container',
   }),
 
   methods: {
+    definirParametros() {
+      const adicionarTexto = this.$store.dispatch('adicionarTexto', this.textoBusca);
+      const removerPagina = this.$store.dispatch('removerPagina');
+
+      Promise.all([adicionarTexto, removerPagina])
+        .then(() => {
+          this.limparCamposEBuscar();
+        });
+    },
+
     limparCamposEBuscar() {
       this.videos.length = 0;
       this.classesTela = `${this.classesTela} animacao-subir`;
 
-      delete this.params.nextPageToken;
+      delete this.params.pageToken;
 
       this.$emit('buscar-videos', this.params);
     },

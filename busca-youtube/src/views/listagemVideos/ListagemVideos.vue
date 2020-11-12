@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import axios from '@/utils/axios';
 import Alerta from '@/components/Alerta.vue';
 import ListagemVideosApresentar from './ListagemVideosApresentar.vue';
@@ -36,14 +37,18 @@ export default {
     abrirAlerta: false,
     loadingContent: false,
     textoMensagem: '',
-    params: {
-      part: 'id,snippet',
-      q: '',
-      maxResults: '20',
-      key: process.env.VUE_APP_API_KEY,
-    },
+    // params: {
+    //   part: 'id,snippet',
+    //   q: '',
+    //   maxResults: '20',
+    //   key: process.env.VUE_APP_API_KEY,
+    // },
     videos: [],
   }),
+
+  computed: mapState([
+    'params',
+  ]),
 
   methods: {
     buscarVideos(params) {
@@ -55,7 +60,8 @@ export default {
 
           this.loadingContent = false;
           this.videos.push(...items);
-          this.params = Object.assign(this.params, { pageToken });
+
+          this.adicionarParametro(pageToken);
         })
         .catch(({ response: { data } }) => {
           const { message } = data.error;
@@ -64,6 +70,10 @@ export default {
           this.abrirAlerta = true;
           this.textoMensagem = message;
         });
+    },
+
+    adicionarParametro(pageToken) {
+      this.$store.dispatch('adicionarPagina', pageToken);
     },
   },
 };

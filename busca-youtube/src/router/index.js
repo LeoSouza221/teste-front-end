@@ -11,8 +11,8 @@ const routes = [
   },
   {
     path: '/video/:id',
-    name: 'DetalheVideos',
-    component: () => import('../views/detalheVideos/detalheVideos.vue'),
+    name: 'DetalheVideo',
+    component: () => import('../views/detalheVideo/detalheVideo.vue'),
   },
 ];
 
