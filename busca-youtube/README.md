@@ -1,24 +1,26 @@
-# busca-youtube
 
-## Project setup
+
+## Configuracoes do Projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+##### Criar .env com aschaves da api com a seguinte nomenclatura
+```
+VUE_APP_API_KEY=SUA_CHAVE
+```
+
+### Compilar para desenvolvimento (abrir na porta estipulada)
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Buildar
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Erros de Lint
 ```
-npm run lint
+npm run lint --fix
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
