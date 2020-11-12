@@ -10,22 +10,20 @@
         v-icon(dark) mdi-arrow-left
       v-row(justify="center")
         v-col(cols="12" sm="12" md="10" lg="8")
-          iframe(
-            width="100%"
-            height="400px"
-            max-height="500px"
-            :src="urlVideo"
-            frameborder="0"
-            allow=`
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-              picture-in-picture
-            `
-            allowfullscreen
-          )
+          .container-iframe
+            iframe(
+              :src="urlVideo"
+              frameborder="0"
+              allow=`
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture
+              `
+              allowfullscreen
+            )
         v-col(cols="12" sm="12" md="10" lg="8")
           v-card.elevation-0(color="transparent")
             v-row(
@@ -33,14 +31,11 @@
               align="center"
             )
               v-col(cols="12")
-                v-toolbar(
-                  flat
-                  height="50"
-                  color="transparent"
-                  class="borda-toolbar"
-                )
-                  v-icon.mr-3(color="white") mdi-video
-                  v-toolbar-title {{ video.snippet.title }}
+                div.borda-toolbar(class="align-text")
+                  v-icon.px-1(color="white") mdi-video
+                  h6(
+                    class="text-caption text-sm-h6"
+                  ) {{ video.snippet.title }}
               v-col(cols="6" sm="8" class="align-text")
                 v-icon.px-1 mdi-eye
                 h4.subtitle-2 {{ video.statistics.viewCount }}
@@ -53,10 +48,22 @@
               v-col(cols="12")
                 v-divider
               v-col(cols="12")
-                h5 Descrição:
-                p.text-format.body-2.text-justify(
-                  v-for="(texto, index) in ajustarDescricao"
-                ) {{ texto }}
+                v-btn(
+                  absolute
+                  bottom
+                  right
+                  color="accent"
+                  fab
+                  rounded
+                  @click="aberto = !aberto"
+                )
+                  v-icon {{ aberto ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+                .description-box(:style="{ height: descricaoBoxAltura }")
+                  h5 Descrição:
+                  p.text-format.body-2.text-justify(
+                    v-for="(texto, index) in ajustarDescricao"
+                  ) {{ texto }}
+                v-divider
 </template>
 
 <script>
@@ -66,6 +73,7 @@ export default {
   name: 'DetalheVideo',
 
   data: () => ({
+    aberto: true,
     video: {},
     params: {
       id: '',
@@ -88,10 +96,14 @@ export default {
 
       return `https://www.youtube.com/embed/${id}`;
     },
+
     ajustarDescricao() {
       const { snippet: { description } } = this.video;
-      console.log(description);
-      return description.split('-');
+      return description.split(' - ');
+    },
+
+    descricaoBoxAltura() {
+      return this.aberto ? '200px' : '100%';
     },
   },
 
@@ -117,7 +129,24 @@ export default {
     border-bottom: 2px solid #fff !important;
   }
 
+  .container-iframe {
+    min-height: 400px;
+    max-height: 700px;
+    height: 100%;
+  }
+
   .align-text {
     display: flex;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .description-box {
+    overflow: hidden;
+    position: relative;
+    transition: all .5s ease-in;
   }
 </style>
