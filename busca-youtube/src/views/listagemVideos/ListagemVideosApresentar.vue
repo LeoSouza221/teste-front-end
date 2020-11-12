@@ -6,6 +6,8 @@
       v-data-iterator(
         :items="videos"
         :items-per-page.sync="videos.length"
+        item-key="id.videoId"
+        search
         hide-default-footer
         v-scroll:#scroll-target="onScroll"
         no-data-text=""
@@ -27,21 +29,19 @@
                   hover
                   height="420"
                   style="overflow: hidden"
+                  @click="detalharVideo(item.id)"
                 )
                   v-card-text
                     v-row(justify="center" align="stretch")
                       v-col(cols="12")
                         v-img(
                           :src="item.snippet.thumbnails.high.url"
+                          max-height="180"
                           contain
                         )
                       v-col(col="12")
-                        h4.py-2.subtitle-2 {{ item.snippet.title | cortarTexto }}
-                        p.text-format.body-2 {{ item.snippet.description }}
-        template(
-          v-slot:no-results
-        ) NO RESULTS HERE!
-          h1.text-center Nao ha nada aqui
+                        h4.py-2.subtitle-2.white--text {{ item.snippet.title | cortarTexto }}
+                        p.text-format.body-2.text-justify {{ item.snippet.description }}
     v-card(
       color="accent"
       v-if="videos.length > 0"
@@ -91,6 +91,12 @@ export default {
       if (percentualScrollado === 100) {
         this.$emit('buscar-videos', this.params);
       }
+    },
+
+    detalharVideo(video) {
+      const { videoId } = video;
+
+      this.$router.push({ name: 'DetalheVideo', params: { id: videoId } });
     },
   },
 };
