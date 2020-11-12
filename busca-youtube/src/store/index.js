@@ -47,5 +47,7 @@ export default new Vuex.Store({
     }),
   },
 
-  getters: {},
+  getters: {
+    textoBusca: (state) => state.params.q,
+  },
 });

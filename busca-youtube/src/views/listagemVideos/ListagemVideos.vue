@@ -37,12 +37,6 @@ export default {
     abrirAlerta: false,
     loadingContent: false,
     textoMensagem: '',
-    // params: {
-    //   part: 'id,snippet',
-    //   q: '',
-    //   maxResults: '20',
-    //   key: process.env.VUE_APP_API_KEY,
-    // },
     videos: [],
   }),
 

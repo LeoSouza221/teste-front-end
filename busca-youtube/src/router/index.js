@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/video/:id',
     name: 'DetalheVideo',
-    component: () => import('../views/detalheVideo/detalheVideo.vue'),
+    component: () => import('../views/detalheVideo/DetalheVideo.vue'),
   },
 ];
 

@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import axios from '@/utils/axios';
 
 export default {
@@ -105,6 +106,10 @@ export default {
     descricaoBoxAltura() {
       return this.aberto ? '200px' : '100%';
     },
+
+    ...mapGetters([
+      'textoBusca',
+    ]),
   },
 
   methods: {
@@ -118,7 +123,7 @@ export default {
     },
 
     voltarTelaInicial() {
-      this.$router.go(-1);
+      this.$router.push({ name: 'Home', query: { busca: this.textoBusca } });
     },
   },
 };

@@ -49,6 +49,16 @@ export default {
     classesTela: 'buscar-container',
   }),
 
+  created() {
+    const { busca } = this.$route.query;
+
+    if (typeof busca === 'string') {
+      this.textoBusca = busca;
+
+      this.definirParametros();
+    }
+  },
+
   methods: {
     definirParametros() {
       const adicionarTexto = this.$store.dispatch('adicionarTexto', this.textoBusca);
