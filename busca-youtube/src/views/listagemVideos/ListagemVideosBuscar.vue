@@ -10,12 +10,14 @@
         )
           v-col(cols="9" sm="6" md="6")
             v-text-field(
+              dark
               outlined
               rounded
               clearable
-              color="secondary"
+              color=""
               placeholder="Pesquisar"
               v-model="textoBusca"
+              @keyup.enter="textoBusca"
             )
           v-col(cols="3" sm="2")
             v-btn(

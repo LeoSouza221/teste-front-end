@@ -1,8 +1,5 @@
 <template lang="pug">
   v-app(
-    :style=`{
-      backgroundColor: $vuetify.theme.themes.dark.primary
-    }`
     class="background-app"
   )
     svg(
@@ -11,7 +8,7 @@
       class="svg-posicao"
     )
       path(
-        :fill="$vuetify.theme.themes.dark.secondary"
+        :fill="$vuetify.theme.themes.dark.primary"
         fill-opacity="1"
         d=`M0,256L48,229.3C96,203,192,149,288,154.7C384,
         160,480,224,576,218.7C672,213,768,139,864,128C960,

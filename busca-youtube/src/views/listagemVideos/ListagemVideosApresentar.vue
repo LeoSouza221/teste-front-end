@@ -14,11 +14,11 @@
       )
         template(v-slot:default="props")
           v-container
-            v-row
+            v-row(justify="center")
               v-col(
                 v-for="(item, index) in props.items"
                 :key="index"
-                cols="12"
+                cols="10"
                 sm="6"
                 md="4"
                 lg="3"

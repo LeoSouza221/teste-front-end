@@ -32,17 +32,18 @@
             )
               v-col(cols="12")
                 div.borda-toolbar(class="align-text")
-                  v-icon.px-1(color="white") mdi-video
+                  v-icon.px-1 mdi-video
                   h6(
                     class="text-caption text-sm-h6"
                   ) {{ video.snippet.title }}
-              v-col(cols="6" sm="8" class="align-text")
+              v-col(cols="4" sm="8" class="align-text")
                 v-icon.px-1 mdi-eye
                 h4.subtitle-2 {{ video.statistics.viewCount }}
-              v-col(col="3" sm="2" class="align-text")
-                v-icon.px-1 mdi-thumb-down-outline
+              v-col(col="4" sm="2" class="align-text")
+                v-hover
+                  v-icon.px-1 mdi-thumb-down-outline
                 h4.text-left.subtitle-2 {{ video.statistics.dislikeCount }}
-              v-col(col="3" sm="2" class="align-text")
+              v-col(col="4" sm="2" class="align-text")
                 v-icon.px-1 mdi-thumb-up-outline
                 h4.text-left.subtitle-2 {{ video.statistics.likeCount }}
               v-col(cols="12")
@@ -52,7 +53,7 @@
                   absolute
                   bottom
                   right
-                  color="accent"
+                  color="secondary"
                   fab
                   rounded
                   @click="aberto = !aberto"
@@ -117,8 +118,6 @@ export default {
       axios.get('/videos', { params })
         .then(({ data: { items } }) => {
           [this.video] = items;
-        })
-        .catch(() => {
         });
     },
 
@@ -136,8 +135,7 @@ export default {
 
   .container-iframe {
     min-height: 400px;
-    max-height: 700px;
-    height: 100%;
+    height: 600px;
   }
 
   .align-text {
@@ -153,5 +151,11 @@ export default {
     overflow: hidden;
     position: relative;
     transition: all .5s ease-in;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .container-iframe {
+      height: 400px;
+    }
   }
 </style>
